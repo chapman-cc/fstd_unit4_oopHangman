@@ -25,13 +25,11 @@ class Phrase {
 
 
 
-    checkLetter(e) {
-        const letter = e.target.textContent;
+    checkLetter(letter) {
         return this.phrase.includes(letter);
     }
 
-    showMatchedLetter(e) {
-        const letter = e.target.textContent;
+    showMatchedLetter(letter) {
         const list = phraseSection.querySelectorAll("li");
         list.forEach(li => {
             if (li.classList.contains(letter)) {

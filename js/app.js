@@ -25,11 +25,12 @@ resetButton.addEventListener("click", ()=> {
 
 qwerty.addEventListener("click", e => {
     if (e.target.className === "key") {
-        game.handleInteraction(e)
+        console.log(e.target)
+        game.handleInteraction(e.target.textContent)
     }
 })
-// document.addEventListener("keyup", e => {
-//     if (/^[A-Za-z]$/.test(e.key)) {
-//         game.handlerInteraction()
-//     }
-// })
+document.addEventListener("keyup", e => {
+    if (/^[A-Za-z]$/.test(e.key)) {        
+        game.handleInteraction(e.key.toLowerCase())
+    }
+})

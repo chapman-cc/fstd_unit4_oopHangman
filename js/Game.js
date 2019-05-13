@@ -42,14 +42,14 @@ class Game {
         this.activePhrase = phrase;
     }
 
-    handleInteraction(e) {
-        const hasLetter = this.activePhrase.checkLetter(e);
+    handleInteraction(letter) {
+        const hasLetter = this.activePhrase.checkLetter(letter);
         if (hasLetter) {
-            this.disableQwerty(e, hasLetter);
-            this.activePhrase.showMatchedLetter(e);
+            this.disableQwerty(letter, hasLetter);
+            this.activePhrase.showMatchedLetter(letter);
             this.checkForWin();
         } else {
-            this.disableQwerty(e, hasLetter);
+            this.disableQwerty(letter, hasLetter);
             this.removeLife();
         } 
     }
@@ -76,6 +76,26 @@ class Game {
 
     }
     gameOver(verdict) {
+        this.missed = 0;
+        this.setStartScreen(verdict);
+        this.erasePhrase();
+        this.cleanKeyboard();
+        this.restoreLife();
+    }
+
+    disableQwerty(letter, hasLetter) {
+        const keys = qwerty.querySelectorAll(".key:not(.chosen):not(.wrong)");
+        keys.forEach(key => {
+            if (key.textContent === letter) {
+                hasLetter ? key.classList.add("chosen") : key.classList.add("wrong");
+            }
+        })
+    }
+
+    cleanKeyboard() {
+        qwerty.querySelectorAll("button").forEach(button => button.className = "key")
+    }
+    setStartScreen(verdict) {
         const gameOverMessage = overlay.querySelector("#game-over-message");
         if (verdict) {
             gameOverMessage.textContent = "You Win";
@@ -86,25 +106,7 @@ class Game {
         }
         resetButton.textContent = "Reset Game"
         overlay.style.display = "inherit";
-
-        this.missed = 0;
-        this.erasePhrase();
-        this.cleanKeyboard();
-        this.restoreLife();
-
-        
-        
     }
-
-    disableQwerty(e, hasLetter) {
-        const element = e.target;
-        hasLetter? element.classList.add("chosen") : element.classList.add("wrong")        
-    }
-
-    cleanKeyboard() {
-        qwerty.querySelectorAll("button").forEach(button => button.className = "key")
-    }
-
 
 
 }
