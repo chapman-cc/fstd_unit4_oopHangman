@@ -5,7 +5,7 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = [];
+        this.phrases = this.createPhrases();
         this.activePhrase = null;
     }
 
@@ -22,9 +22,11 @@ class Game {
             'HADOUKEN!',
             'You were almost a Jill sandwich!'
         ];
+        const phrases = [];
         quotes.forEach(quote => {
-            this.phrases.push(new Phrase(quote));
+            phrases.push(new Phrase(quote));
         })
+        return phrases;
     }
 
     /**
@@ -83,12 +85,6 @@ class Game {
     }
 
     disableQwerty(letter, hasLetter) { 
-        // const keys = Array.from(qwerty.querySelectorAll(".key:not(.chosen):not(.wrong)"));
-        // keys.forEach(key => {
-        //     if (key.textContent === letter) {
-        //         hasLetter ? key.classList.add("chosen") : key.classList.add("wrong");
-        //     }
-        // })
         const button = Array.from(qwerty.querySelectorAll("button")).find(button=>button.textContent === letter);
         hasLetter ? button.classList.add("chosen") : button.classList.add("wrong");
     }

@@ -17,7 +17,6 @@ const scoreBoard = document.querySelector("#scoreboard");
 // APP
 // ---------------
 const game = new Game();
-game.createPhrases();
 
 resetButton.addEventListener("click", ()=> {
     game.startGame()
@@ -25,12 +24,11 @@ resetButton.addEventListener("click", ()=> {
 
 qwerty.addEventListener("click", e => {
     if (e.target.className === "key") {
-        console.log(e.target)
         game.handleInteraction(e.target.textContent)
     }
 })
 document.addEventListener("keyup", e => {
-    if (/^[A-Za-z]$/.test(e.key)) {        
+    if (/^[A-Za-z]$/.test(e.key) && overlay.style.display !== "none") {        
         game.handleInteraction(e.key.toLowerCase())
     }
 })
