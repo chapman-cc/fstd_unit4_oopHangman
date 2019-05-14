@@ -44,12 +44,11 @@ class Game {
 
     handleInteraction(letter) {
         const hasLetter = this.activePhrase.checkLetter(letter);
+        this.disableQwerty(letter, hasLetter);
         if (hasLetter) {
-            this.disableQwerty(letter, hasLetter);
             this.activePhrase.showMatchedLetter(letter);
             this.checkForWin();
         } else {
-            this.disableQwerty(letter, hasLetter);
             this.removeLife();
         } 
     }
